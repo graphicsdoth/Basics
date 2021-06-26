@@ -12,4 +12,4 @@ for n in range(a):
     s_term = t_term
     n=n+1
 
-print("The terms have been printed test")
+print("The terms have been printed")
