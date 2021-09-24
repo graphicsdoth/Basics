@@ -31,8 +31,8 @@ def remainder(n1,n2):
 
 cal={'+': addition, '-':subtract, '*':multiply, '/':divide, '**':power, '%':remainder}
 
-a1 = int(input("Enter first number"))
-b1 = int(input("Enter the second number"))
+a1 = float(input("Enter first number"))
+b1 = float(input("Enter the second number"))
 for i in cal:
   print(i)
 choice1 = input("choose one of the above operations")
