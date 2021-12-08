@@ -1,0 +1,106 @@
+logo = """
+.------.            _     _            _    _            _    
+|A_  _ |.          | |   | |          | |  (_)          | |   
+|( \/ ).-----.     | |__ | | __ _  ___| | ___  __ _  ___| | __
+| \  /|K /\  |     | '_ \| |/ _` |/ __| |/ / |/ _` |/ __| |/ /
+|  \/ | /  \ |     | |_) | | (_| | (__|   <| | (_| | (__|   < 
+`-----| \  / |     |_.__/|_|\__,_|\___|_|\_\ |\__,_|\___|_|\_\\
+      |  \/ K|                            _/ |                
+      `------'                           |__/           
+"""
+
+# from replit import clear
+
+#Hint 13: Create a function called compare() and pass in the user_score and computer_score. If the computer and user both have the same score, then it's a draw. If the computer has a blackjack (0), then the user loses. If the user has a blackjack (0), then the user wins. If the user_score is over 21, then the user loses. If the computer_score is over 21, then the computer loses. If none of the above, then the player with the highest score wins.
+
+
+def compare(comp,user):
+  if comp == user:
+    return("Its a draw")
+  elif comp == 0:
+    return("Its a Blackjack for the opponent, You Lost")
+  elif user == 0:
+    return("Its a Blackjack for you, You Win")
+  elif user > 21:
+    return("Your Score crossed over and greater than 21, You Lost")
+  elif comp > 21:
+    return("Opponent Score crossed over and greater than 21, You Win")
+  elif(user > comp):
+      return("You Win")
+  else:
+    return("You Lost")
+
+def deal_card():
+  cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+  choice = random.choice(cards)
+  return choice
+
+
+  #Hint 6: Create a function called calculate_score() that takes a List of cards as input 
+  #and returns the score. 
+  #Look up the sum() function to help you do this.
+
+  #Hint 7: Inside calculate_score() check for a blackjack (a hand with only 2 cards: ace + 10) and return 0 instead of the actual score. 0 will represent a blackjack in our game.
+
+  #Hint 8: Inside calculate_score() check for an 11 (ace). If the score is already over 21, remove the 11 and replace it with a 1. You might need to look up append() and remove().
+
+
+def calculate_score(list1):
+  if (sum(list1) == 21) and len(list1)==2:
+    return 0
+  if 11 in list1 and sum(list1)>21:
+    list1.remove(11)
+    list1.append(1)
+  return sum(list1)
+
+
+import random
+def play_game():
+  print(logo)
+  user=[]
+  comp=[]
+  user.append(deal_card())
+  user.append(deal_card())
+  comp.append(deal_card())
+  comp.append(deal_card())
+
+  is_game_over = False
+  #Hint 9: Call calculate_score(). If the computer or the user has a blackjack (0) or if the user's score is over 21, then the game ends.
+
+  while(is_game_over == False):
+    
+    user_score = calculate_score(user)
+    comp_score = calculate_score(comp)
+
+    print(f" Your Cards: {user}, Your Score: {user_score}")
+    print(f" Computer First Card: {comp[0]}")
+
+    if comp_score  == 0 or user_score ==0 or user_score>21 : 
+      is_game_over = True 
+    else:
+      #Hint 10: If the game has not ended, ask the user if they want to draw another card. If yes, then use the deal_card() function to add another card to the user_cards List. If no, then the game has ended.
+      user_ip = input("Do you want to draw another card : y/n")
+      if user_ip == 'y':
+        user.append(deal_card())
+      else:
+        is_game_over = True
+
+  #Hint 11: The score will need to be rechecked with every new card drawn and the checks in Hint 9 need to be repeated until the game ends.
+
+  #Hint 12: Once the user is done, it's time to let the computer play. The computer should keep drawing cards as long as it has a score less than 17.
+
+  user_score = calculate_score(user)
+  print("Your Score: ", user_score)
+  # comp_score = calculate_score(comp)
+  # print("Computer Score: ", comp_score)
+
+  while(comp_score != 0 and comp_score<17):
+    comp.append(deal_card())
+    comp_score = calculate_score(comp)
+  
+  print("Computer Score: ", comp_score)
+  print(compare(comp_score, user_score))
+  #Hint 14: Ask the user if they want to restart the game. If they answer yes, clear the console and start a new game of blackjack and show the logo from art.py.
+
+while(input("Do you want to play again: y/n")=="y"):
+  play_game()
